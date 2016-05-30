@@ -40,36 +40,34 @@ namespace
 
 TEST(FdTest, CtorAndDtor)
 {
-    po6::io::fd fd;
+	po6::io::fd fd;
 }
 
 TEST(FdTest, OpenAndExplicitClose)
 {
-    po6::io::fd fd;
-    fd = open("/dev/zero", O_RDONLY);
-    fd.close();
+	po6::io::fd fd;
+	fd = open("/dev/zero", O_RDONLY);
+	fd.close();
 }
 
 TEST(FdTest, OpenAndImplicitClose)
 {
-    po6::io::fd fd;
-    fd = open("/dev/zero", O_RDONLY);
+	po6::io::fd fd;
+	fd = open("/dev/zero", O_RDONLY);
 }
 
 TEST(FdTest, OpenReadWriteClose)
 {
-    po6::io::fd fd;
-    fd = open("/dev/zero", O_RDWR);
-    char buf[4096];
-    fd.read(buf, 4096);
-
-    for (int i = 0; i < 4096; ++i)
-    {
-        ASSERT_EQ(buf[i], '\0');
-    }
-
-    fd.write(buf, 4096);
-    fd.close();
+	po6::io::fd fd;
+	fd = open("/dev/zero", O_RDWR);
+	char buf[4096];
+	fd.read(buf, 4096);
+	for (int i = 0; i < 4096; ++i)
+	{
+		ASSERT_EQ(buf[i], '\0');
+	}
+	fd.write(buf, 4096);
+	fd.close();
 }
 
 } // namespace

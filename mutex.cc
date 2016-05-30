@@ -35,68 +35,64 @@
 using po6::threads::mutex;
 
 mutex :: mutex()
-    : m_mutex()
+	: m_mutex()
 {
-    int ret = pthread_mutex_init(&m_mutex, NULL);
-
-    if (ret != 0)
-    {
-        abort();
-    }
+	int ret = pthread_mutex_init(&m_mutex, NULL);
+	if (ret != 0)
+	{
+		abort();
+	}
 }
 
 mutex :: ~mutex() throw ()
 {
-    int ret = pthread_mutex_destroy(&m_mutex);
-
-    if (ret != 0)
-    {
-        abort();
-    }
+	int ret = pthread_mutex_destroy(&m_mutex);
+	if (ret != 0)
+	{
+		abort();
+	}
 }
 
 void
 mutex :: lock()
 {
-    int ret = pthread_mutex_lock(&m_mutex);
-
-    if (ret != 0)
-    {
-        abort();
-    }
+	int ret = pthread_mutex_lock(&m_mutex);
+	if (ret != 0)
+	{
+		abort();
+	}
 }
 
 void
 mutex :: unlock()
 {
-    int ret = pthread_mutex_unlock(&m_mutex);
-
-    if (ret != 0)
-    {
-        abort();
-    }
+	int ret = pthread_mutex_unlock(&m_mutex);
+	if (ret != 0)
+	{
+		abort();
+	}
 }
 
-mutex :: hold :: hold(mutex* mtx)
-    : m_held(false)
-    , m_mtx(mtx)
+mutex :: hold :: hold(mutex *mtx)
+	: m_held(false)
+	, m_mtx(mtx)
 {
-    m_mtx->lock();
-    m_held = true;
+	m_mtx->lock();
+	m_held = true;
 }
 
 void
 mutex :: hold :: release()
 {
-    assert(m_held);
-    m_held = false;
-    m_mtx->unlock();
+	assert(m_held);
+	m_held = false;
+	m_mtx->unlock();
 }
 
 mutex :: hold :: ~hold() throw ()
 {
-    if (m_held)
-    {
-        release();
-    }
+	if (m_held)
+	{
+		release();
+	}
 }

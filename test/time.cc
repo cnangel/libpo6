@@ -37,9 +37,9 @@ namespace
 
 TEST(TimeTest, NonZero)
 {
-    ASSERT_NE(0, po6::time());
-    ASSERT_NE(0, po6::monotonic_time());
-    ASSERT_NE(0, po6::wallclock_time());
+	ASSERT_NE(0, po6::time());
+	ASSERT_NE(0, po6::monotonic_time());
+	ASSERT_NE(0, po6::wallclock_time());
 }
 
 } // namespace

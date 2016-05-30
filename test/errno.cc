@@ -37,8 +37,8 @@ namespace
 
 TEST(ErrnoTest, ErrnoTest)
 {
-    ASSERT_NE(po6::strerror(EINVAL), "");
-    ASSERT_EQ(std::string(po6::strerrno(EINVAL)), "EINVAL");
+	ASSERT_NE(po6::strerror(EINVAL), "");
+	ASSERT_EQ(std::string(po6::strerrno(EINVAL)), "EINVAL");
 }
 
 } // namespace

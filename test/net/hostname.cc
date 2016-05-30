@@ -35,18 +35,17 @@ namespace
 
 TEST(HostnameTest, CtorAndDtor)
 {
-    po6::net::hostname hostname1;
-    po6::net::hostname hostname2("hyperdex.org", 80);
-    po6::net::hostname hostname3(hostname2);
+	po6::net::hostname hostname1;
+	po6::net::hostname hostname2("hyperdex.org", 80);
+	po6::net::hostname hostname3(hostname2);
 }
 
 TEST(HostnameTest, Comparison)
 {
-    po6::net::hostname hostname("hyperdex.org", 80);
-    po6::net::socket sock;
-    po6::net::location loc;
-
-    loc = hostname.connect(AF_UNSPEC, SOCK_STREAM, IPPROTO_TCP, &sock);
+	po6::net::hostname hostname("hyperdex.org", 80);
+	po6::net::socket sock;
+	po6::net::location loc;
+	loc = hostname.connect(AF_UNSPEC, SOCK_STREAM, IPPROTO_TCP, &sock);
 }
 
 } // namespace

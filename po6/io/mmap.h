@@ -41,27 +41,27 @@ namespace io
 
 class mmap
 {
-    public:
-        mmap(void* addr, size_t length,
-             int prot, int flags,
-             int fd, off_t offset);
-        ~mmap() throw ();
+public:
+	mmap(void *addr, size_t length,
+	     int prot, int flags,
+	     int fd, off_t offset);
+	~mmap() throw ();
 
-    public:
-        void* base() const { return m_base; }
-        size_t size() const { return m_length; }
-        bool valid() const { return m_base != NULL; }
-        int error() const { return m_error; }
-        void close();
+public:
+	void *base() const { return m_base; }
+	size_t size() const { return m_length; }
+	bool valid() const { return m_base != NULL; }
+	int error() const { return m_error; }
+	void close();
 
-    private:
-        void* m_base;
-        size_t m_length;
-        int m_error;
+private:
+	void *m_base;
+	size_t m_length;
+	int m_error;
 
-    private:
-        mmap(const mmap&);
-        mmap& operator = (const mmap&);
+private:
+	mmap(const mmap &);
+	mmap &operator = (const mmap &);
 };
 
 } // namespace io

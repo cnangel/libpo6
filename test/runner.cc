@@ -29,9 +29,9 @@
 #include "th.h"
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
-    (void)argc;
-    (void)argv;
-    return th::run_tests();
+	(void)argc;
+	(void)argv;
+	return th::run_tests();
 }

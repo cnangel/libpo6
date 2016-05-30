@@ -51,59 +51,59 @@ namespace net
 
 class ipaddr
 {
-    public:
-        static ipaddr ANY() { return ipaddr(INADDR_ANY); }
-        static uint64_t hash(const ipaddr& ip);
+public:
+	static ipaddr ANY() { return ipaddr(INADDR_ANY); }
+	static uint64_t hash(const ipaddr &ip);
 
-    public:
-        ipaddr();
-        explicit ipaddr(const in_addr& ipv4);
-        explicit ipaddr(const in_addr_t& ipv4);
-        explicit ipaddr(const in6_addr& ipv6);
-        ipaddr(const ipaddr& other);
-        ~ipaddr() throw ();
+public:
+	ipaddr();
+	explicit ipaddr(const in_addr &ipv4);
+	explicit ipaddr(const in_addr_t &ipv4);
+	explicit ipaddr(const in6_addr &ipv6);
+	ipaddr(const ipaddr &other);
+	~ipaddr() throw ();
 
-    public:
-        int family() const { return m_family; }
-        void pack(struct sockaddr* addr, socklen_t* addrlen, in_port_t port) const;
-        void pack(struct sockaddr_in* addr, in_port_t port) const;
-        void pack(struct sockaddr_in6* addr, in_port_t port) const;
-        const in_addr& v4addr() const { assert(m_family == AF_INET); return m_ip.v4; }
-        const in6_addr& v6addr() const { assert(m_family == AF_INET6); return m_ip.v6; }
-        int compare(const ipaddr& rhs) const;
+public:
+	int family() const { return m_family; }
+	void pack(struct sockaddr *addr, socklen_t *addrlen, in_port_t port) const;
+	void pack(struct sockaddr_in *addr, in_port_t port) const;
+	void pack(struct sockaddr_in6 *addr, in_port_t port) const;
+	const in_addr &v4addr() const { assert(m_family == AF_INET); return m_ip.v4; }
+	const in6_addr &v6addr() const { assert(m_family == AF_INET6); return m_ip.v6; }
+	int compare(const ipaddr &rhs) const;
 
-    public:
-        PO6_WARN_UNUSED bool set(const char* addr);
-        PO6_WARN_UNUSED bool set(const std::string& s);
-        void set(const in_addr& ipv4);
-        void set(const in6_addr& ipv6);
+public:
+	PO6_WARN_UNUSED bool set(const char *addr);
+	PO6_WARN_UNUSED bool set(const std::string &s);
+	void set(const in_addr &ipv4);
+	void set(const in6_addr &ipv6);
 
-    public:
-        ipaddr& operator = (const ipaddr& rhs);
-        bool operator < (const ipaddr& rhs) const;
-        bool operator <= (const ipaddr& rhs) const;
-        bool operator == (const ipaddr& rhs) const;
-        bool operator != (const ipaddr& rhs) const;
-        bool operator >= (const ipaddr& rhs) const;
-        bool operator > (const ipaddr& rhs) const;
+public:
+	ipaddr &operator = (const ipaddr &rhs);
+	bool operator < (const ipaddr &rhs) const;
+	bool operator <= (const ipaddr &rhs) const;
+	bool operator == (const ipaddr &rhs) const;
+	bool operator != (const ipaddr &rhs) const;
+	bool operator >= (const ipaddr &rhs) const;
+	bool operator > (const ipaddr &rhs) const;
 
-    private:
-        friend std::ostream& operator << (std::ostream& lhs, const ipaddr& rhs);
+private:
+	friend std::ostream &operator << (std::ostream &lhs, const ipaddr &rhs);
 
-    private:
-        int m_family;
-        union
-        {
-            in_addr v4;
-            in6_addr v6;
-        } m_ip;
+private:
+	int m_family;
+	union
+	{
+		in_addr v4;
+		in6_addr v6;
+	} m_ip;
 };
 
-std::ostream&
-operator << (std::ostream& lhs, const ipaddr& rhs);
+std::ostream &
+operator << (std::ostream &lhs, const ipaddr &rhs);
 
-std::istream&
-operator >> (std::istream& lhs, ipaddr& rhs);
+std::istream &
+operator >> (std::istream &lhs, ipaddr &rhs);
 
 } // namespace net
 } // namespace po6

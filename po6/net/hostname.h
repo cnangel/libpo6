@@ -42,36 +42,36 @@ namespace net
 
 class hostname
 {
-    public:
-        hostname();
-        hostname(const char* _address, in_port_t _port);
-        explicit hostname(const location&);
-        hostname(const hostname& other);
-        ~hostname() throw ();
+public:
+	hostname();
+	hostname(const char *_address, in_port_t _port);
+	explicit hostname(const location &);
+	hostname(const hostname &other);
+	~hostname() throw ();
 
-    public:
-        location connect(int domain, int type, int protocol, socket* sock) const;
-        // non-throwing, non-connecting version
-        location lookup(int type, int protocol) const;
+public:
+	location connect(int domain, int type, int protocol, socket *sock) const;
+	// non-throwing, non-connecting version
+	location lookup(int type, int protocol) const;
 
-    public:
-        bool operator < (const hostname& rhs) const;
-        bool operator <= (const hostname& rhs) const;
-        bool operator == (const hostname& rhs) const;
-        bool operator != (const hostname& rhs) const;
-        bool operator >= (const hostname& rhs) const;
-        bool operator > (const hostname& rhs) const;
+public:
+	bool operator < (const hostname &rhs) const;
+	bool operator <= (const hostname &rhs) const;
+	bool operator == (const hostname &rhs) const;
+	bool operator != (const hostname &rhs) const;
+	bool operator >= (const hostname &rhs) const;
+	bool operator > (const hostname &rhs) const;
 
-    public:
-        std::string address;
-        in_port_t port;
+public:
+	std::string address;
+	in_port_t port;
 
-    private:
-        int compare(const hostname& rhs) const;
+private:
+	int compare(const hostname &rhs) const;
 };
 
-std::ostream&
-operator << (std::ostream& lhs, const hostname& rhs);
+std::ostream &
+operator << (std::ostream &lhs, const hostname &rhs);
 
 } // namespace net
 } // namespace po6

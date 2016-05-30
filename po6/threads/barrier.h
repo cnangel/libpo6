@@ -42,23 +42,23 @@ namespace threads
 
 class barrier
 {
-    public:
-        barrier(uint64_t count);
-        ~barrier() throw ();
+public:
+	barrier(uint64_t count);
+	~barrier() throw ();
 
-    public:
-        bool wait();
+public:
+	bool wait();
 
-    private:
-        po6::threads::mutex m_lock;
-        po6::threads::cond m_cv;
-        uint64_t m_height;
-        uint64_t m_level;
-        uint64_t m_generation;
+private:
+	po6::threads::mutex m_lock;
+	po6::threads::cond m_cv;
+	uint64_t m_height;
+	uint64_t m_level;
+	uint64_t m_generation;
 
-    private:
-        barrier(const barrier&);
-        barrier& operator = (const barrier&);
+private:
+	barrier(const barrier &);
+	barrier &operator = (const barrier &);
 };
 
 } // namespace threads

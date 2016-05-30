@@ -32,42 +32,41 @@
 
 class RwlockTestThread
 {
-    public:
-        RwlockTestThread(po6::threads::rwlock* rwl, bool mode)
-            : m_rwl(rwl)
-            , m_mode(mode)
-        {
-        }
+public:
+	RwlockTestThread(po6::threads::rwlock *rwl, bool mode)
+		: m_rwl(rwl)
+		, m_mode(mode)
+	{
+	}
 
-        RwlockTestThread(const RwlockTestThread& other)
-            : m_rwl(other.m_rwl)
-            , m_mode(other.m_mode)
-        {
-        }
+	RwlockTestThread(const RwlockTestThread &other)
+		: m_rwl(other.m_rwl)
+		, m_mode(other.m_mode)
+	{
+	}
 
-        void operator () ()
-        {
-            for (int i = 0; i < 1000000; ++i)
-            {
-                if (m_mode)
-                {
-                    m_rwl->rdlock();
-                }
-                else
-                {
-                    m_rwl->wrlock();
-                }
+	void operator () ()
+	{
+		for (int i = 0; i < 1000000; ++i)
+		{
+			if (m_mode)
+			{
+				m_rwl->rdlock();
+			}
+			else
+			{
+				m_rwl->wrlock();
+			}
+			m_rwl->unlock();
+		}
+	}
 
-                m_rwl->unlock();
-            }
-        }
+private:
+	RwlockTestThread &operator = (const RwlockTestThread &);
 
-    private:
-        RwlockTestThread& operator = (const RwlockTestThread&);
-
-    private:
-        po6::threads::rwlock* m_rwl;
-        bool m_mode;
+private:
+	po6::threads::rwlock *m_rwl;
+	bool m_mode;
 };
 
 namespace
@@ -75,46 +74,43 @@ namespace
 
 TEST(RwlockTest, CtorAndDtor)
 {
-    po6::threads::rwlock rwl;
+	po6::threads::rwlock rwl;
 }
 
 TEST(RwlockTest, LockAndUnlock)
 {
-    po6::threads::rwlock rwl;
-    rwl.rdlock();
-    rwl.unlock();
-    rwl.wrlock();
-    rwl.unlock();
+	po6::threads::rwlock rwl;
+	rwl.rdlock();
+	rwl.unlock();
+	rwl.wrlock();
+	rwl.unlock();
 }
 
 TEST(RwlockTest, TwoThreads)
 {
-    po6::threads::rwlock rwl;
-    RwlockTestThread read(&rwl, true);
-    RwlockTestThread write(&rwl, false);
-    po6::threads::thread t1(read);
-    po6::threads::thread t2(read);
-    po6::threads::thread t3(write);
-
-    t1.start();
-    t2.start();
-    t3.start();
-    t1.join();
-    t2.join();
-    t3.join();
+	po6::threads::rwlock rwl;
+	RwlockTestThread read(&rwl, true);
+	RwlockTestThread write(&rwl, false);
+	po6::threads::thread t1(read);
+	po6::threads::thread t2(read);
+	po6::threads::thread t3(write);
+	t1.start();
+	t2.start();
+	t3.start();
+	t1.join();
+	t2.join();
+	t3.join();
 }
 
 TEST(RwlockTest, Holding)
 {
-    po6::threads::rwlock rwl;
-
-    {
-        po6::threads::rwlock::rdhold h(&rwl);
-    }
-
-    {
-        po6::threads::rwlock::wrhold h(&rwl);
-    }
+	po6::threads::rwlock rwl;
+	{
+		po6::threads::rwlock::rdhold h(&rwl);
+	}
+	{
+		po6::threads::rwlock::wrhold h(&rwl);
+	}
 }
 
 } // namespace

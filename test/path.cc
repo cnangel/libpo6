@@ -37,46 +37,46 @@ namespace
 
 TEST(PathnameTest, Basename)
 {
-    ASSERT_EQ(po6::path::basename(""), ".");
-    ASSERT_EQ(po6::path::basename("."), ".");
-    ASSERT_EQ(po6::path::basename(".."), "..");
-    ASSERT_EQ(po6::path::basename("/"), "/");
-    ASSERT_EQ(po6::path::basename("////////"), "/");
-    ASSERT_EQ(po6::path::basename("bar"), "bar");
-    ASSERT_EQ(po6::path::basename("/foo/bar"), "bar");
-    ASSERT_EQ(po6::path::basename("/foo/bar/"), "bar");
-    ASSERT_EQ(po6::path::basename("/foo/bar/."), ".");
-    ASSERT_EQ(po6::path::basename("foo/bar"), "bar");
-    ASSERT_EQ(po6::path::basename("foo/bar/"), "bar");
-    ASSERT_EQ(po6::path::basename("foo/bar/."), ".");
+	ASSERT_EQ(po6::path::basename(""), ".");
+	ASSERT_EQ(po6::path::basename("."), ".");
+	ASSERT_EQ(po6::path::basename(".."), "..");
+	ASSERT_EQ(po6::path::basename("/"), "/");
+	ASSERT_EQ(po6::path::basename("////////"), "/");
+	ASSERT_EQ(po6::path::basename("bar"), "bar");
+	ASSERT_EQ(po6::path::basename("/foo/bar"), "bar");
+	ASSERT_EQ(po6::path::basename("/foo/bar/"), "bar");
+	ASSERT_EQ(po6::path::basename("/foo/bar/."), ".");
+	ASSERT_EQ(po6::path::basename("foo/bar"), "bar");
+	ASSERT_EQ(po6::path::basename("foo/bar/"), "bar");
+	ASSERT_EQ(po6::path::basename("foo/bar/."), ".");
 }
 
 TEST(PathnameTest, Dirname)
 {
-    ASSERT_EQ(po6::path::dirname(""), ".");
-    ASSERT_EQ(po6::path::dirname("."), ".");
-    ASSERT_EQ(po6::path::dirname(".."), ".");
-    ASSERT_EQ(po6::path::dirname("/"), "/");
-    ASSERT_EQ(po6::path::dirname("////////"), "/");
-    ASSERT_EQ(po6::path::dirname("bar"), ".");
-    ASSERT_EQ(po6::path::dirname("/foo/bar"), "/foo");
-    ASSERT_EQ(po6::path::dirname("/foo/bar/"), "/foo");
-    ASSERT_EQ(po6::path::dirname("/foo/bar/."), "/foo/bar");
-    ASSERT_EQ(po6::path::dirname("foo/bar"), "foo");
-    ASSERT_EQ(po6::path::dirname("foo/bar/"), "foo");
-    ASSERT_EQ(po6::path::dirname("foo/bar/."), "foo/bar");
+	ASSERT_EQ(po6::path::dirname(""), ".");
+	ASSERT_EQ(po6::path::dirname("."), ".");
+	ASSERT_EQ(po6::path::dirname(".."), ".");
+	ASSERT_EQ(po6::path::dirname("/"), "/");
+	ASSERT_EQ(po6::path::dirname("////////"), "/");
+	ASSERT_EQ(po6::path::dirname("bar"), ".");
+	ASSERT_EQ(po6::path::dirname("/foo/bar"), "/foo");
+	ASSERT_EQ(po6::path::dirname("/foo/bar/"), "/foo");
+	ASSERT_EQ(po6::path::dirname("/foo/bar/."), "/foo/bar");
+	ASSERT_EQ(po6::path::dirname("foo/bar"), "foo");
+	ASSERT_EQ(po6::path::dirname("foo/bar/"), "foo");
+	ASSERT_EQ(po6::path::dirname("foo/bar/."), "foo/bar");
 }
 
 TEST(PathnameTest, Join)
 {
-    ASSERT_EQ("foo/bar", po6::path::join("foo", "bar"));
-    ASSERT_EQ("/bar", po6::path::join("foo", "/bar"));
-    ASSERT_EQ("./bar", po6::path::join("", "bar"));
-    ASSERT_EQ("foo/bar", po6::path::join("foo/", "bar"));
-    ASSERT_EQ("foo/bar/baz", po6::path::join("foo", "bar", "baz"));
-    ASSERT_EQ("foo/bar/baz/quux", po6::path::join("foo", "bar", "baz", "quux"));
-    ASSERT_EQ("/quux", po6::path::join("foo", "bar", "baz", "/quux"));
-    ASSERT_EQ("/bar", po6::path::join("///", "/bar"));
+	ASSERT_EQ("foo/bar", po6::path::join("foo", "bar"));
+	ASSERT_EQ("/bar", po6::path::join("foo", "/bar"));
+	ASSERT_EQ("./bar", po6::path::join("", "bar"));
+	ASSERT_EQ("foo/bar", po6::path::join("foo/", "bar"));
+	ASSERT_EQ("foo/bar/baz", po6::path::join("foo", "bar", "baz"));
+	ASSERT_EQ("foo/bar/baz/quux", po6::path::join("foo", "bar", "baz", "quux"));
+	ASSERT_EQ("/quux", po6::path::join("foo", "bar", "baz", "/quux"));
+	ASSERT_EQ("/bar", po6::path::join("///", "/bar"));
 }
 
 } // namespace

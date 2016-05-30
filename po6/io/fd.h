@@ -43,30 +43,30 @@ namespace io
 
 class fd
 {
-    public:
-        fd();
-        explicit fd(int f);
-        virtual ~fd() throw ();
+public:
+	fd();
+	explicit fd(int f);
+	virtual ~fd() throw ();
 
-    public:
-        int get() const { return m_fd; }
-        void close();
-        PO6_WARN_UNUSED ssize_t read(void *buf, size_t nbytes);
-        PO6_WARN_UNUSED ssize_t xread(void* buf, size_t nbytes);
-        PO6_WARN_UNUSED ssize_t write(const void *buf, size_t nbytes);
-        PO6_WARN_UNUSED ssize_t xwrite(const void *buf, size_t nbytes);
-        PO6_WARN_UNUSED bool set_nonblocking();
-        void swap(fd* other) throw ();
+public:
+	int get() const { return m_fd; }
+	void close();
+	PO6_WARN_UNUSED ssize_t read(void *buf, size_t nbytes);
+	PO6_WARN_UNUSED ssize_t xread(void *buf, size_t nbytes);
+	PO6_WARN_UNUSED ssize_t write(const void *buf, size_t nbytes);
+	PO6_WARN_UNUSED ssize_t xwrite(const void *buf, size_t nbytes);
+	PO6_WARN_UNUSED bool set_nonblocking();
+	void swap(fd *other) throw ();
 
-    public:
-        fd& operator = (int f);
+public:
+	fd &operator = (int f);
 
-    private:
-        int m_fd;
+private:
+	int m_fd;
 
-    private:
-        fd(const fd&);
-        fd& operator = (const fd&);
+private:
+	fd(const fd &);
+	fd &operator = (const fd &);
 };
 
 } // namespace io

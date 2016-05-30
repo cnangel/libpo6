@@ -39,16 +39,16 @@ void func(void)
 
 TEST(ThreadTest, CtorAndDtor)
 {
-    po6::threads::function f = &func;
-    po6::threads::thread t(f);
+	po6::threads::function f = &func;
+	po6::threads::thread t(f);
 }
 
 TEST(ThreadTest, StartAndJoin)
 {
-    po6::threads::function f = &func;
-    po6::threads::thread t(f);
-    t.start();
-    t.join();
+	po6::threads::function f = &func;
+	po6::threads::thread t(f);
+	t.start();
+	t.join();
 }
 
 } // namespace

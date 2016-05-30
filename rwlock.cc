@@ -35,103 +35,98 @@
 using po6::threads::rwlock;
 
 rwlock :: rwlock()
-    : m_rwlock()
+	: m_rwlock()
 {
-    int ret = pthread_rwlock_init(&m_rwlock, NULL);
-
-    if (ret != 0)
-    {
-        abort();
-    }
+	int ret = pthread_rwlock_init(&m_rwlock, NULL);
+	if (ret != 0)
+	{
+		abort();
+	}
 }
 
 rwlock :: ~rwlock() throw ()
 {
-    int ret = pthread_rwlock_destroy(&m_rwlock);
-
-    if (ret != 0)
-    {
-        abort();
-    }
+	int ret = pthread_rwlock_destroy(&m_rwlock);
+	if (ret != 0)
+	{
+		abort();
+	}
 }
 
 void
 rwlock :: rdlock()
 {
-    int ret = pthread_rwlock_rdlock(&m_rwlock);
-
-    if (ret != 0)
-    {
-        abort();
-    }
+	int ret = pthread_rwlock_rdlock(&m_rwlock);
+	if (ret != 0)
+	{
+		abort();
+	}
 }
 
 void
 rwlock :: wrlock()
 {
-    int ret = pthread_rwlock_wrlock(&m_rwlock);
-
-    if (ret != 0)
-    {
-        abort();
-    }
+	int ret = pthread_rwlock_wrlock(&m_rwlock);
+	if (ret != 0)
+	{
+		abort();
+	}
 }
 
 void
 rwlock :: unlock()
 {
-    int ret = pthread_rwlock_unlock(&m_rwlock);
-
-    if (ret != 0)
-    {
-        abort();
-    }
+	int ret = pthread_rwlock_unlock(&m_rwlock);
+	if (ret != 0)
+	{
+		abort();
+	}
 }
 
-rwlock :: rdhold :: rdhold(rwlock* rwl)
-    : m_held(false)
-    , m_rwl(rwl)
+rwlock :: rdhold :: rdhold(rwlock *rwl)
+	: m_held(false)
+	, m_rwl(rwl)
 {
-    m_rwl->rdlock();
-    m_held = true;
+	m_rwl->rdlock();
+	m_held = true;
 }
 
 void
 rwlock :: rdhold :: release()
 {
-    assert(m_held);
-    m_held = false;
-    m_rwl->unlock();
+	assert(m_held);
+	m_held = false;
+	m_rwl->unlock();
 }
 
 rwlock :: rdhold :: ~rdhold() throw ()
 {
-    if (m_held)
-    {
-        release();
-    }
+	if (m_held)
+	{
+		release();
+	}
 }
 
-rwlock :: wrhold :: wrhold(rwlock* rwl)
-    : m_held(false)
-    , m_rwl(rwl)
+rwlock :: wrhold :: wrhold(rwlock *rwl)
+	: m_held(false)
+	, m_rwl(rwl)
 {
-    m_rwl->wrlock();
-    m_held = true;
+	m_rwl->wrlock();
+	m_held = true;
 }
 
 void
 rwlock :: wrhold :: release()
 {
-    assert(m_held);
-    m_held = false;
-    m_rwl->unlock();
+	assert(m_held);
+	m_held = false;
+	m_rwl->unlock();
 }
 
 rwlock :: wrhold :: ~wrhold() throw ()
 {
-    if (m_held)
-    {
-        release();
-    }
+	if (m_held)
+	{
+		release();
+	}
 }

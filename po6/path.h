@@ -42,39 +42,39 @@ namespace path
 // input.
 
 std::string
-basename(const std::string& path);
+basename(const std::string &path);
 
 std::string
-dirname(const std::string& path);
+dirname(const std::string &path);
 
 // This corresponds to the realpath(3) library call.
 bool
-realpath(const std::string& path, std::string* real);
+realpath(const std::string &path, std::string *real);
 
 // Concatenate pathnames in a manner that is reminiscent of os.path.join in
 // Python.
 
 std::string
-join(const std::string& p1,
-     const std::string& p2);
+join(const std::string &p1,
+     const std::string &p2);
 
 std::string
-join(const std::string& p1,
-     const std::string& p2,
-     const std::string& p3);
+join(const std::string &p1,
+     const std::string &p2,
+     const std::string &p3);
 
 std::string
-join(const std::string& p1,
-     const std::string& p2,
-     const std::string& p3,
-     const std::string& p4);
+join(const std::string &p1,
+     const std::string &p2,
+     const std::string &p3,
+     const std::string &p4);
 
 std::string
-join(const std::string& p1,
-     const std::string& p2,
-     const std::string& p3,
-     const std::string& p4,
-     const std::string& p5);
+join(const std::string &p1,
+     const std::string &p2,
+     const std::string &p3,
+     const std::string &p4,
+     const std::string &p5);
 
 } // namespace path
 } // namespace po6

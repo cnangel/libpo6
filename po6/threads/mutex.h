@@ -38,44 +38,44 @@ namespace threads
 
 class mutex
 {
-    public:
-        class hold;
+public:
+	class hold;
 
-    public:
-        mutex();
-        ~mutex() throw ();
+public:
+	mutex();
+	~mutex() throw ();
 
-    public:
-        void lock();
-        void unlock();
+public:
+	void lock();
+	void unlock();
 
-    private:
-        friend class cond;
+private:
+	friend class cond;
 
-    private:
-        pthread_mutex_t m_mutex;
+private:
+	pthread_mutex_t m_mutex;
 
-    private:
-        mutex(const mutex&);
-        mutex& operator = (const mutex&);
+private:
+	mutex(const mutex &);
+	mutex &operator = (const mutex &);
 };
 
 class mutex::hold
 {
-    public:
-        hold(mutex* mtx);
-        ~hold() throw ();
+public:
+	hold(mutex *mtx);
+	~hold() throw ();
 
-    public:
-        void release();
+public:
+	void release();
 
-    private:
-        bool m_held;
-        mutex* m_mtx;
+private:
+	bool m_held;
+	mutex *m_mtx;
 
-    private:
-        hold(const hold&);
-        hold& operator = (const hold&);
+private:
+	hold(const hold &);
+	hold &operator = (const hold &);
 };
 
 } // namespace threads

@@ -41,24 +41,24 @@ namespace threads
 
 class cond
 {
-    public:
-        cond(mutex* mtx);
-        ~cond() throw ();
+public:
+	cond(mutex *mtx);
+	~cond() throw ();
 
-    public:
-        void lock();
-        void unlock();
-        void wait();
-        void signal();
-        void broadcast();
+public:
+	void lock();
+	void unlock();
+	void wait();
+	void signal();
+	void broadcast();
 
-    private:
-        mutex* m_mtx;
-        pthread_cond_t m_cond;
+private:
+	mutex *m_mtx;
+	pthread_cond_t m_cond;
 
-    private:
-        cond(const cond&);
-        cond& operator = (const cond&);
+private:
+	cond(const cond &);
+	cond &operator = (const cond &);
 };
 
 } // namespace threads

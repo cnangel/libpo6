@@ -35,38 +35,36 @@
 
 class CondTestSimpleCond
 {
-    public:
-        CondTestSimpleCond(unsigned* counter, po6::threads::cond* cnd)
-            : m_counter(counter)
-            , m_cnd(cnd)
-        {
-        }
+public:
+	CondTestSimpleCond(unsigned *counter, po6::threads::cond *cnd)
+		: m_counter(counter)
+		, m_cnd(cnd)
+	{
+	}
 
-        CondTestSimpleCond(const CondTestSimpleCond& other)
-            : m_counter(other.m_counter)
-            , m_cnd(other.m_cnd)
-        {
-        }
+	CondTestSimpleCond(const CondTestSimpleCond &other)
+		: m_counter(other.m_counter)
+		, m_cnd(other.m_cnd)
+	{
+	}
 
-    public:
-        void operator () ()
-        {
-            m_cnd->lock();
+public:
+	void operator () ()
+	{
+		m_cnd->lock();
+		while (*m_counter < ITERS)
+		{
+			m_cnd->wait();
+		}
+		m_cnd->unlock();
+	}
 
-            while (*m_counter < ITERS)
-            {
-                m_cnd->wait();
-            }
+private:
+	CondTestSimpleCond &operator = (const CondTestSimpleCond &);
 
-            m_cnd->unlock();
-        }
-
-    private:
-        CondTestSimpleCond& operator = (const CondTestSimpleCond&);
-
-    private:
-        unsigned* m_counter;
-        po6::threads::cond* m_cnd;
+private:
+	unsigned *m_counter;
+	po6::threads::cond *m_cnd;
 };
 
 namespace
@@ -74,37 +72,33 @@ namespace
 
 TEST(CondTest, CtorAndDtor)
 {
-    po6::threads::mutex mtx;
-    po6::threads::cond cnd(&mtx);
+	po6::threads::mutex mtx;
+	po6::threads::cond cnd(&mtx);
 }
 
 TEST(CondTest, SimpleCond)
 {
-    po6::threads::mutex mtx;
-    po6::threads::cond cnd(&mtx);
-    unsigned counter;
-    CondTestSimpleCond ctsc(&counter, &cnd);
-    po6::threads::thread t(ctsc);
-    t.start();
-
-    for (unsigned i = 0; i <= ITERS; ++i)
-    {
-        cnd.lock();
-        counter = i;
-
-        if (i % 2 == 0)
-        {
-            cnd.signal();
-        }
-        else
-        {
-            cnd.broadcast();
-        }
-
-        cnd.unlock();
-    }
-
-    t.join();
+	po6::threads::mutex mtx;
+	po6::threads::cond cnd(&mtx);
+	unsigned counter;
+	CondTestSimpleCond ctsc(&counter, &cnd);
+	po6::threads::thread t(ctsc);
+	t.start();
+	for (unsigned i = 0; i <= ITERS; ++i)
+	{
+		cnd.lock();
+		counter = i;
+		if (i % 2 == 0)
+		{
+			cnd.signal();
+		}
+		else
+		{
+			cnd.broadcast();
+		}
+		cnd.unlock();
+	}
+	t.join();
 }
 
 } // namespace

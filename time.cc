@@ -39,52 +39,48 @@
 uint64_t
 po6 :: time()
 {
-    return wallclock_time();
+	return wallclock_time();
 }
 
 uint64_t
 po6 :: monotonic_time()
 {
-    timespec ts;
-    clockid_t ci;
+	timespec ts;
+	clockid_t ci;
 #ifdef CLOCK_UPTIME
-    ci = CLOCK_UPTIME;
+	ci = CLOCK_UPTIME;
 #elif defined CLOCK_MONOTONIC_RAW
-    ci = CLOCK_MONOTONIC_RAW;
+	ci = CLOCK_MONOTONIC_RAW;
 #elif defined CLOCK_MONOTONIC
-    ci = CLOCK_MONOTONIC;
+	ci = CLOCK_MONOTONIC;
 #else
 #error no known-working monotonic clock
 #endif
-
-    if (clock_gettime(ci, &ts) < 0)
-    {
-        return 0;
-    }
-
-    return ts.tv_sec * 1000000000 + ts.tv_nsec;
+	if (clock_gettime(ci, &ts) < 0)
+	{
+		return 0;
+	}
+	return ts.tv_sec * 1000000000 + ts.tv_nsec;
 }
 
 uint64_t
 po6 :: wallclock_time()
 {
-    timespec ts;
-
-    if (clock_gettime(CLOCK_REALTIME, &ts) < 0)
-    {
-        return 0;
-    }
-
-    return ts.tv_sec * 1000000000 + ts.tv_nsec;
+	timespec ts;
+	if (clock_gettime(CLOCK_REALTIME, &ts) < 0)
+	{
+		return 0;
+	}
+	return ts.tv_sec * 1000000000 + ts.tv_nsec;
 }
 
 void
 po6 :: sleep(uint64_t x)
 {
-    struct timespec ts;
-    ts.tv_sec = x / PO6_SECONDS;
-    ts.tv_nsec = x % PO6_SECONDS;
-    nanosleep(&ts, NULL);
+	struct timespec ts;
+	ts.tv_sec = x / PO6_SECONDS;
+	ts.tv_nsec = x % PO6_SECONDS;
+	nanosleep(&ts, NULL);
 }
 
 #elif __MACH__
@@ -95,31 +91,29 @@ po6 :: sleep(uint64_t x)
 uint64_t
 po6 :: time()
 {
-    return wallclock_time();
+	return wallclock_time();
 }
 
 uint64_t
 po6 :: monotonic_time()
 {
-    clock_serv_t cclock;
-    mach_timespec_t mts;
-
-    host_get_clock_service(mach_host_self(), SYSTEM_CLOCK, &cclock);
-    clock_get_time(cclock, &mts);
-    mach_port_deallocate(mach_task_self(), cclock);
-    return mts.tv_sec * 1000000000 + mts.tv_nsec;
+	clock_serv_t cclock;
+	mach_timespec_t mts;
+	host_get_clock_service(mach_host_self(), SYSTEM_CLOCK, &cclock);
+	clock_get_time(cclock, &mts);
+	mach_port_deallocate(mach_task_self(), cclock);
+	return mts.tv_sec * 1000000000 + mts.tv_nsec;
 }
 
 uint64_t
 po6 :: wallclock_time()
 {
-    clock_serv_t cclock;
-    mach_timespec_t mts;
-
-    host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
-    clock_get_time(cclock, &mts);
-    mach_port_deallocate(mach_task_self(), cclock);
-    return mts.tv_sec * 1000000000 + mts.tv_nsec;
+	clock_serv_t cclock;
+	mach_timespec_t mts;
+	host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
+	clock_get_time(cclock, &mts);
+	mach_port_deallocate(mach_task_self(), cclock);
+	return mts.tv_sec * 1000000000 + mts.tv_nsec;
 }
 
 #endif

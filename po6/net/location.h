@@ -41,45 +41,45 @@ namespace net
 
 class location
 {
-    public:
-        static uint64_t hash(const location& loc);
+public:
+	static uint64_t hash(const location &loc);
 
-    public:
-        location();
-        explicit location(const ipaddr& address);
-        location(const ipaddr& address, in_port_t port);
-        explicit location(const sockaddr_in* sa);
-        explicit location(const sockaddr_in6* sa);
-        location(const location& other);
-        ~location() throw ();
+public:
+	location();
+	explicit location(const ipaddr &address);
+	location(const ipaddr &address, in_port_t port);
+	explicit location(const sockaddr_in *sa);
+	explicit location(const sockaddr_in6 *sa);
+	location(const location &other);
+	~location() throw ();
 
-    public:
-        void pack(struct sockaddr* addr, socklen_t* addrlen) const;
-        PO6_WARN_UNUSED bool set(const char* address);
-        PO6_WARN_UNUSED bool set(const char* address, in_port_t port);
-        PO6_WARN_UNUSED bool set(const sockaddr* sa, socklen_t salen);
-        void set(const sockaddr_in* sa);
-        void set(const sockaddr_in6* sa);
+public:
+	void pack(struct sockaddr *addr, socklen_t *addrlen) const;
+	PO6_WARN_UNUSED bool set(const char *address);
+	PO6_WARN_UNUSED bool set(const char *address, in_port_t port);
+	PO6_WARN_UNUSED bool set(const sockaddr *sa, socklen_t salen);
+	void set(const sockaddr_in *sa);
+	void set(const sockaddr_in6 *sa);
 
-    public:
-        location& operator = (const location& rhs);
-        bool operator < (const location& rhs) const;
-        bool operator <= (const location& rhs) const;
-        bool operator == (const location& rhs) const;
-        bool operator != (const location& rhs) const;
-        bool operator >= (const location& rhs) const;
-        bool operator > (const location& rhs) const;
+public:
+	location &operator = (const location &rhs);
+	bool operator < (const location &rhs) const;
+	bool operator <= (const location &rhs) const;
+	bool operator == (const location &rhs) const;
+	bool operator != (const location &rhs) const;
+	bool operator >= (const location &rhs) const;
+	bool operator > (const location &rhs) const;
 
-    public:
-        ipaddr address;
-        in_port_t port;
+public:
+	ipaddr address;
+	in_port_t port;
 
-    private:
-        int compare(const location& rhs) const;
+private:
+	int compare(const location &rhs) const;
 };
 
-std::ostream&
-operator << (std::ostream& lhs, const location& rhs);
+std::ostream &
+operator << (std::ostream &lhs, const location &rhs);
 
 } // namespace net
 } // namespace po6

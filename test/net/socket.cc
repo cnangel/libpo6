@@ -32,21 +32,21 @@
 #include "po6/net/socket.h"
 
 po6::net::ipaddr
-IPADDR(const char* address)
+IPADDR(const char *address)
 {
-    po6::net::ipaddr ip;
-    bool ret = ip.set(address);
-    ASSERT_TRUE(ret);
-    return ip;
+	po6::net::ipaddr ip;
+	bool ret = ip.set(address);
+	ASSERT_TRUE(ret);
+	return ip;
 }
 
 po6::net::location
-LOCATION(const char* address, in_port_t port)
+LOCATION(const char *address, in_port_t port)
 {
-    po6::net::location loc;
-    bool ret = loc.set(address, port);
-    ASSERT_TRUE(ret);
-    return loc;
+	po6::net::location loc;
+	bool ret = loc.set(address, port);
+	ASSERT_TRUE(ret);
+	return loc;
 }
 
 namespace
@@ -54,31 +54,27 @@ namespace
 
 TEST(SocketTest, ClientAndServer)
 {
-    po6::net::socket server;
-    po6::net::socket client;
-    ASSERT_TRUE(server.reset(AF_INET, SOCK_STREAM, IPPROTO_TCP));
-    ASSERT_TRUE(client.reset(AF_INET, SOCK_STREAM, IPPROTO_TCP));
-
-    // Create the sockaddr.
-    sockaddr sa;
-    socklen_t salen = sizeof(sa);
-    po6::net::ipaddr ip = IPADDR("127.0.0.1");
-    ip.pack(&sa, &salen, INADDR_ANY);
-
-    // Create the server.
-    server.bind(ip);
-    server.listen(10);
-
-    // Create the client.
-    po6::net::location loc;
-    ASSERT_TRUE(server.getsockname(&loc));
-    client.connect(loc);
-
-    // Close down the connection.
-    client.shutdown(SHUT_RDWR);
-    server.shutdown(SHUT_RDWR);
-    client.close();
-    server.close();
+	po6::net::socket server;
+	po6::net::socket client;
+	ASSERT_TRUE(server.reset(AF_INET, SOCK_STREAM, IPPROTO_TCP));
+	ASSERT_TRUE(client.reset(AF_INET, SOCK_STREAM, IPPROTO_TCP));
+	// Create the sockaddr.
+	sockaddr sa;
+	socklen_t salen = sizeof(sa);
+	po6::net::ipaddr ip = IPADDR("127.0.0.1");
+	ip.pack(&sa, &salen, INADDR_ANY);
+	// Create the server.
+	server.bind(ip);
+	server.listen(10);
+	// Create the client.
+	po6::net::location loc;
+	ASSERT_TRUE(server.getsockname(&loc));
+	client.connect(loc);
+	// Close down the connection.
+	client.shutdown(SHUT_RDWR);
+	server.shutdown(SHUT_RDWR);
+	client.close();
+	server.close();
 }
 
 } // namespace

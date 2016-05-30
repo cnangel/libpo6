@@ -31,21 +31,21 @@
 #include "po6/net/location.h"
 
 po6::net::ipaddr
-IPADDR(const char* address)
+IPADDR(const char *address)
 {
-    po6::net::ipaddr ip;
-    bool ret = ip.set(address);
-    ASSERT_TRUE(ret);
-    return ip;
+	po6::net::ipaddr ip;
+	bool ret = ip.set(address);
+	ASSERT_TRUE(ret);
+	return ip;
 }
 
 po6::net::location
-LOCATION(const char* address, in_port_t port)
+LOCATION(const char *address, in_port_t port)
 {
-    po6::net::location loc;
-    bool ret = loc.set(address, port);
-    ASSERT_TRUE(ret);
-    return loc;
+	po6::net::location loc;
+	bool ret = loc.set(address, port);
+	ASSERT_TRUE(ret);
+	return loc;
 }
 
 namespace
@@ -53,63 +53,58 @@ namespace
 
 TEST(LocationTest, CtorAndDtor)
 {
-    po6::net::location loc;
+	po6::net::location loc;
 }
 
 TEST(LocationTest, Comparison)
 {
-    // The addresses in this test were chosen to compare the same independent of
-    // bite-order.
-    po6::net::location locA = LOCATION("127.0.0.127", 1234);
-    po6::net::location locB = LOCATION("127.1.1.127", 1234);
-
-    ASSERT_LT(locA, locB);
-    locA.address = IPADDR("127.1.1.127");
-    ASSERT_EQ(locA, locB);
-    ++ locB.port;
-    ASSERT_LT(locA, locB);
+	// The addresses in this test were chosen to compare the same independent of
+	// bite-order.
+	po6::net::location locA = LOCATION("127.0.0.127", 1234);
+	po6::net::location locB = LOCATION("127.1.1.127", 1234);
+	ASSERT_LT(locA, locB);
+	locA.address = IPADDR("127.1.1.127");
+	ASSERT_EQ(locA, locB);
+	++ locB.port;
+	ASSERT_LT(locA, locB);
 }
 
 TEST(LocationTest, FromSockaddrIn)
 {
-    po6::net::ipaddr ip = IPADDR("127.0.0.1");
-    sockaddr_in sa;
-    ip.pack(&sa, 1234);
-
-    po6::net::location loc(&sa);
-    ASSERT_EQ(loc, LOCATION("127.0.0.1", 1234));
+	po6::net::ipaddr ip = IPADDR("127.0.0.1");
+	sockaddr_in sa;
+	ip.pack(&sa, 1234);
+	po6::net::location loc(&sa);
+	ASSERT_EQ(loc, LOCATION("127.0.0.1", 1234));
 }
 
 TEST(LocationTest, FromSockaddrIn6)
 {
-    po6::net::ipaddr ip = IPADDR("::1");
-    sockaddr_in6 sa;
-    ip.pack(&sa, 1234);
-
-    po6::net::location loc(&sa);
-    ASSERT_EQ(loc, LOCATION("::1", 1234));
+	po6::net::ipaddr ip = IPADDR("::1");
+	sockaddr_in6 sa;
+	ip.pack(&sa, 1234);
+	po6::net::location loc(&sa);
+	ASSERT_EQ(loc, LOCATION("::1", 1234));
 }
 
 TEST(LocationTest, FromSockaddrInCasted)
 {
-    po6::net::ipaddr ip = IPADDR("127.0.0.1");
-    sockaddr_in sa;
-    ip.pack(&sa, 1234);
-
-    po6::net::location loc;
-    ASSERT_TRUE(loc.set(reinterpret_cast<sockaddr*>(&sa), sizeof(sockaddr_in)));
-    ASSERT_EQ(loc, LOCATION("127.0.0.1", 1234));
+	po6::net::ipaddr ip = IPADDR("127.0.0.1");
+	sockaddr_in sa;
+	ip.pack(&sa, 1234);
+	po6::net::location loc;
+	ASSERT_TRUE(loc.set(reinterpret_cast<sockaddr *>(&sa), sizeof(sockaddr_in)));
+	ASSERT_EQ(loc, LOCATION("127.0.0.1", 1234));
 }
 
 TEST(LocationTest, FromSockaddrIn6Casted)
 {
-    po6::net::ipaddr ip = IPADDR("::1");
-    sockaddr_in6 sa;
-    ip.pack(&sa, 1234);
-
-    po6::net::location loc;
-    ASSERT_TRUE(loc.set(reinterpret_cast<sockaddr*>(&sa), sizeof(sockaddr_in6)));
-    ASSERT_EQ(loc, LOCATION("::1", 1234));
+	po6::net::ipaddr ip = IPADDR("::1");
+	sockaddr_in6 sa;
+	ip.pack(&sa, 1234);
+	po6::net::location loc;
+	ASSERT_TRUE(loc.set(reinterpret_cast<sockaddr *>(&sa), sizeof(sockaddr_in6)));
+	ASSERT_EQ(loc, LOCATION("::1", 1234));
 }
 
 } // namespace

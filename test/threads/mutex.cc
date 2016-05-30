@@ -34,30 +34,30 @@
 
 class MutexTestThread
 {
-    public:
-        MutexTestThread(po6::threads::mutex* mtx)
-            : m_mtx(mtx)
-        {
-        }
-        MutexTestThread(const MutexTestThread& other)
-            : m_mtx(other.m_mtx)
-        {
-        }
+public:
+	MutexTestThread(po6::threads::mutex *mtx)
+		: m_mtx(mtx)
+	{
+	}
+	MutexTestThread(const MutexTestThread &other)
+		: m_mtx(other.m_mtx)
+	{
+	}
 
-        void operator () ()
-        {
-            for (int i = 0; i < 1000000; ++i)
-            {
-                m_mtx->lock();
-                m_mtx->unlock();
-            }
-        }
+	void operator () ()
+	{
+		for (int i = 0; i < 1000000; ++i)
+		{
+			m_mtx->lock();
+			m_mtx->unlock();
+		}
+	}
 
-    private:
-        MutexTestThread& operator = (const MutexTestThread&);
+private:
+	MutexTestThread &operator = (const MutexTestThread &);
 
-    private:
-        po6::threads::mutex* m_mtx;
+private:
+	po6::threads::mutex *m_mtx;
 };
 
 namespace
@@ -65,36 +65,34 @@ namespace
 
 TEST(MutexTest, CtorAndDtor)
 {
-    po6::threads::mutex mtx;
+	po6::threads::mutex mtx;
 }
 
 TEST(MutexTest, LockAndUnlock)
 {
-    po6::threads::mutex mtx;
-    mtx.lock();
-    mtx.unlock();
+	po6::threads::mutex mtx;
+	mtx.lock();
+	mtx.unlock();
 }
 
 TEST(MutexTest, TwoThreads)
 {
-    po6::threads::mutex mtx;
-    MutexTestThread mtt(&mtx);
-    po6::threads::thread t1(mtt);
-    po6::threads::thread t2(mtt);
-
-    t1.start();
-    t2.start();
-    t1.join();
-    t2.join();
+	po6::threads::mutex mtx;
+	MutexTestThread mtt(&mtx);
+	po6::threads::thread t1(mtt);
+	po6::threads::thread t2(mtt);
+	t1.start();
+	t2.start();
+	t1.join();
+	t2.join();
 }
 
 TEST(MutexTest, Holding)
 {
-    po6::threads::mutex mtx;
-
-    {
-        po6::threads::mutex::hold h(&mtx);
-    }
+	po6::threads::mutex mtx;
+	{
+		po6::threads::mutex::hold h(&mtx);
+	}
 }
 
 } // namespace

@@ -44,46 +44,46 @@ namespace net
 
 class socket : public po6::io::fd
 {
-    public:
-        socket();
-        explicit socket(int fd);
-        ~socket() throw ();
+public:
+	socket();
+	explicit socket(int fd);
+	~socket() throw ();
 
-    public:
-        PO6_WARN_UNUSED bool reset(int domain, int type, int protocol);
+public:
+	PO6_WARN_UNUSED bool reset(int domain, int type, int protocol);
 
-        PO6_WARN_UNUSED bool bind(const ipaddr& addr, in_port_t port);
-        PO6_WARN_UNUSED bool bind(const ipaddr& addr);
-        PO6_WARN_UNUSED bool bind(const location& loc);
-        PO6_WARN_UNUSED bool connect(const ipaddr& addr, in_port_t port);
-        PO6_WARN_UNUSED bool connect(const location& loc);
-        PO6_WARN_UNUSED bool listen(int backlog);
-        PO6_WARN_UNUSED bool accept(socket* newsock);
-        PO6_WARN_UNUSED bool shutdown(int how);
+	PO6_WARN_UNUSED bool bind(const ipaddr &addr, in_port_t port);
+	PO6_WARN_UNUSED bool bind(const ipaddr &addr);
+	PO6_WARN_UNUSED bool bind(const location &loc);
+	PO6_WARN_UNUSED bool connect(const ipaddr &addr, in_port_t port);
+	PO6_WARN_UNUSED bool connect(const location &loc);
+	PO6_WARN_UNUSED bool listen(int backlog);
+	PO6_WARN_UNUSED bool accept(socket *newsock);
+	PO6_WARN_UNUSED bool shutdown(int how);
 
-        PO6_WARN_UNUSED bool getpeername(location* loc);
-        PO6_WARN_UNUSED bool getsockname(location* loc);
+	PO6_WARN_UNUSED bool getpeername(location *loc);
+	PO6_WARN_UNUSED bool getsockname(location *loc);
 
-        PO6_WARN_UNUSED bool set_sockopt(int level, int optname,
-                                         const void *optval, socklen_t optlen);
-        PO6_WARN_UNUSED bool set_reuseaddr();
-        PO6_WARN_UNUSED bool set_tcp_nodelay();
-        PO6_WARN_UNUSED bool sndbuf(size_t size);
-        PO6_WARN_UNUSED bool rcvbuf(size_t size);
-        PO6_WARN_UNUSED bool sndlowat(size_t size);
-        PO6_WARN_UNUSED bool rcvlowat(size_t size);
+	PO6_WARN_UNUSED bool set_sockopt(int level, int optname,
+	                                 const void *optval, socklen_t optlen);
+	PO6_WARN_UNUSED bool set_reuseaddr();
+	PO6_WARN_UNUSED bool set_tcp_nodelay();
+	PO6_WARN_UNUSED bool sndbuf(size_t size);
+	PO6_WARN_UNUSED bool rcvbuf(size_t size);
+	PO6_WARN_UNUSED bool sndlowat(size_t size);
+	PO6_WARN_UNUSED bool rcvlowat(size_t size);
 
-        PO6_WARN_UNUSED ssize_t recv(void *buf, size_t len, int flags);
-        PO6_WARN_UNUSED ssize_t xrecv(void *buf, size_t len, int flags);
-        PO6_WARN_UNUSED ssize_t send(const void *buf, size_t len, int flags);
-        PO6_WARN_UNUSED ssize_t xsend(const void *buf, size_t len, int flags);
+	PO6_WARN_UNUSED ssize_t recv(void *buf, size_t len, int flags);
+	PO6_WARN_UNUSED ssize_t xrecv(void *buf, size_t len, int flags);
+	PO6_WARN_UNUSED ssize_t send(const void *buf, size_t len, int flags);
+	PO6_WARN_UNUSED ssize_t xsend(const void *buf, size_t len, int flags);
 
-    public:
-        socket& operator = (int f);
+public:
+	socket &operator = (int f);
 
-    private:
-        socket(const socket&);
-        socket& operator = (const socket&);
+private:
+	socket(const socket &);
+	socket &operator = (const socket &);
 };
 
 } // namespace net

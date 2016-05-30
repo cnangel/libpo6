@@ -38,61 +38,61 @@ namespace threads
 
 class rwlock
 {
-    public:
-        class rdhold;
-        class wrhold;
+public:
+	class rdhold;
+	class wrhold;
 
-    public:
-        rwlock();
-        ~rwlock() throw ();
+public:
+	rwlock();
+	~rwlock() throw ();
 
-    public:
-        void rdlock();
-        void wrlock();
-        void unlock();
+public:
+	void rdlock();
+	void wrlock();
+	void unlock();
 
-    private:
-        pthread_rwlock_t m_rwlock;
+private:
+	pthread_rwlock_t m_rwlock;
 
-    private:
-        rwlock(const rwlock&);
-        rwlock& operator = (const rwlock&);
+private:
+	rwlock(const rwlock &);
+	rwlock &operator = (const rwlock &);
 };
 
 class rwlock::rdhold
 {
-    public:
-        rdhold(rwlock* rwl);
-        ~rdhold() throw ();
+public:
+	rdhold(rwlock *rwl);
+	~rdhold() throw ();
 
-    public:
-        void release();
+public:
+	void release();
 
-    private:
-        bool m_held;
-        rwlock* m_rwl;
+private:
+	bool m_held;
+	rwlock *m_rwl;
 
-    private:
-        rdhold(const rdhold&);
-        rdhold& operator = (const rdhold&);
+private:
+	rdhold(const rdhold &);
+	rdhold &operator = (const rdhold &);
 };
 
 class rwlock::wrhold
 {
-    public:
-        wrhold(rwlock* rwl);
-        ~wrhold() throw ();
+public:
+	wrhold(rwlock *rwl);
+	~wrhold() throw ();
 
-    public:
-        void release();
+public:
+	void release();
 
-    private:
-        bool m_held;
-        rwlock* m_rwl;
+private:
+	bool m_held;
+	rwlock *m_rwl;
 
-    private:
-        wrhold(const wrhold&);
-        wrhold& operator = (const wrhold&);
+private:
+	wrhold(const wrhold &);
+	wrhold &operator = (const wrhold &);
 };
 
 } // namespace threads

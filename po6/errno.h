@@ -48,17 +48,17 @@ strerror(int err);
 
 // convert the given errno into a c-string constant.  e.g. strerrno(EINVAL)
 // returns the string "EINVAL".
-const char*
+const char *
 strerrno(int err);
 
 // Force a warning when a function that returns its success/failure is not
 // checked by the program.
 #define PO6_WARN_UNUSED __attribute((warn_unused_result))
 #define PO6_EXPLICITLY_IGNORE(X) \
-    do \
-    { \
-        if ((X)) {} \
-    } while (0)
+	do \
+	{ \
+		if ((X)) {} \
+	} while (0)
 
 } // namespace po6
 
